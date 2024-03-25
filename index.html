@@ -1,0 +1,27 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Example</title>
+</head>
+<body>
+    <img id="captchaImg" src="#" alt="CAPTCHA">
+    <button onclick="refreshCaptcha()">Refresh CAPTCHA</button>
+
+    <script>
+        function refreshCaptcha() {
+            // Tạo một yêu cầu HTTP GET để lấy hình ảnh CAPTCHA từ máy chủ
+            fetch('http://localhost:8080/captcha')
+                .then(response => response.json()) // Chuyển đổi phản hồi sang JSON
+                .then(data => {
+                    console.log("data",data);
+                    // Hiển thị hình ảnh CAPTCHA trên trang web
+                    document.getElementById('captchaImg').src =data.image;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Refresh CAPTCHA khi trang được tải lần đầu tiên
+        refreshCaptcha();
+    </script>
+</body>
+</html>
